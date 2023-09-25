@@ -1,9 +1,14 @@
 #pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+#include "Piece.h"
 
-class King
+class King : public Piece
 {
 private:
 public:
-    King(/* args */);
-    ~King();
+    string getName() override { return "King"; }
+    King(/* args */){};
+    ~King() override {};
 };

@@ -1,9 +1,14 @@
 #pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+#include "Piece.h"
 
-class Pawn
+class Pawn : public Piece
 {
 private:
 public:
-    Pawn(/* args */);
-    ~Pawn();
+    string getName() override { return "Pawn"; }
+    Pawn(/* args */){};
+    ~Pawn() override {};
 };

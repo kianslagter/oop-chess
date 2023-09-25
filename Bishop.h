@@ -1,10 +1,15 @@
 #pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+#include "Piece.h"
 
-class Bishop
+class Bishop : public Piece
 {
 private:
     /* data */
 public:
-    Bishop(/* args */);
-    ~Bishop();
+    string getName() override { return "Bishop"; }
+    Bishop(/* args */){};
+    ~Bishop() override {};
 };
