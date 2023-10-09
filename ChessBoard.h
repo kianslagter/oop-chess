@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include <array>
 using namespace std;
 
 #include "Bishop.h"
