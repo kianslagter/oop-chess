@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
-#include <vector>
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 #include "Bishop.h"
@@ -16,6 +16,10 @@ using namespace std;
 class ChessBoard {
  private:
   Piece* board[8][8];
+  int whiteEval;
+  int blackEval;
+  int eval;
+  int moveCount;
 
  public:
   ChessBoard() {
@@ -60,6 +64,33 @@ class ChessBoard {
         cout << board[i][j] << ' ';
       }
       cout << endl;
+    }
+  }
+
+  void setWhiteEval() {
+    whiteEval = 0;  // place holder
+  }
+
+  void setBlackEval() {
+    blackEval = 0;  // place holder
+  }
+
+  void setEval() { eval = whiteEval - blackEval; }
+
+  int getEval() { return eval; }
+
+  void displayEval() { cout << "Current Eval:" << getEval() << endl; }
+
+  void displayMove() {
+    if (moveCount % 2 == 0) {
+      cout << "Move: " << (moveCount + 1) << endl
+           << "White"
+           << "to play." << endl;
+
+    } else {
+      cout << "Move: " << (moveCount + 1) << endl
+           << "Black"
+           << "to play." << endl;
     }
   }
 };

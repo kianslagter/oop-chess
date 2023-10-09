@@ -4,12 +4,15 @@
 using namespace std;
 #include "Piece.h"
 
-class Bishop : public Piece
-{
-private:
-    /* data */
-public:
-    string getName() override { return "Bishop"; }
-    Bishop(/* args */){};
-    ~Bishop() override {};
+class Bishop : public Piece {
+ private:
+  int pieceValue = 3;
+
+ public:
+  string getName() override { return "Bishop"; }
+
+  int getPieceValue() { return pieceValue; }
+  
+  Bishop(/* args */){};
+  ~Bishop() override{};
 };
