@@ -8,7 +8,7 @@ int main() {
     RenderWindow window(VideoMode(512, 512), "Chess Board");
 
     // create board
-    Board board;
+    Board board();
 
     while (window.isOpen()) {
         Event event;

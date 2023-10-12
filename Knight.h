@@ -1,7 +1,9 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 using namespace std;
+using namespace sf;
 #include "Piece.h"
 
 class Knight : public Piece {
@@ -9,10 +11,14 @@ class Knight : public Piece {
   int pieceValue = 3;
 
  public:
+  static Texture whiteKnight;
+  static Texture blackKnight;
+
+  Texture loadTexture
+
   string getName() override { return "Knight"; }
 
-  int getPieceValue() { return pieceValue; }
-
-  Knight(/* args */){};
-  ~Knight() override{};
+  void movePiece() override {
+    // game logic for legal moves
+  }
 };

@@ -1,10 +1,10 @@
 all: compile link
 
 compile:
-	g++ -c testDrawBoard.cpp -I/opt/homebrew/Cellar/sfml/2.6.0/include -DSFML_STATIC
+	g++ -c main.cpp -I/opt/homebrew/Cellar/sfml/2.6.0/include -DSFML_STATIC
 
 link:
-	g++ testDrawBoard.o -o testDrawBoard -L/opt/homebrew/Cellar/sfml/2.6.0/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ main.o -o main -L/opt/homebrew/Cellar/sfml/2.6.0/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-	rm -f testDrawBoard *.o
+	rm -f main *.o
