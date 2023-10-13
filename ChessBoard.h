@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+using namespace sf;
 
 #include "Bishop.h"
 #include "King.h"
@@ -15,57 +16,135 @@ using namespace std;
 
 class ChessBoard {
  private:
-  Piece* board[8][8];
   int whiteEval;
   int blackEval;
   int eval;
   int moveCount;
 
  public:
-  ChessBoard() {
-    // put pieces on board
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-        if (i == 0 || i == 7) {
-          if (j == 0 || j == 7) {
-            board[i][j] = new Rook();
-          } else if (j == 1 || j == 6) {
-            board[i][j] = new Knight();
-          } else if (j == 2 || j == 5) {
-            board[i][j] = new Bishop();
-          } else if (j == 3) {
-            board[i][j] = new Queen();
-          } else {
-            board[i][j] = new King();
-          }
-        } else if (i == 1 || i == 6) {
-          board[i][j] = new Pawn();
+  static void initialiseChessBoard(vector<Piece*>& pieces) {
+    // create white pieces
+    pieces.push_back(new Queen(true));
+    pieces.push_back(new King(true));
+    pieces.push_back(new Bishop(true));
+    pieces.push_back(new Bishop(true));
+    pieces.push_back(new Knight(true));
+    pieces.push_back(new Knight(true));
+    pieces.push_back(new Rook(true));
+    pieces.push_back(new Rook(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
+    pieces.push_back(new Pawn(true));
 
-        } else {
-          board[i][j] = nullptr;  // empty squares on board
+    // create black pieces
+    pieces.push_back(new Queen(false));
+    pieces.push_back(new King(false));
+    pieces.push_back(new Bishop(false));
+    pieces.push_back(new Bishop(false));
+    pieces.push_back(new Knight(false));
+    pieces.push_back(new Knight(false));
+    pieces.push_back(new Rook(false));
+    pieces.push_back(new Rook(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+    pieces.push_back(new Pawn(false));
+
+    // count of pieces on the board
+    int whitePawnCount = 0;
+    int blackPawnCount = 0;
+    int whiteBishopCount = 0;
+    int blackBishopCount = 0;
+    int whiteKnightCount = 0;
+    int blackKnightCount = 0;
+    int whiteRookCount = 0;
+    int blackRookCount = 0;
+
+    // Set initial positions for each piece
+    for (Piece* piece : pieces) {
+      if (piece->getName() == "Queen") {
+        if (piece->getColor() == true) {  // white queen
+          Vector2f position = getSquareCenter(7, 3);
+          piece->getSprite().setPosition(position);
+        } else {  // black queen
+          Vector2f position = getSquareCenter(0, 3);
+          piece->getSprite().setPosition(position);
         }
       }
+
+      if (piece->getName() == "King") {
+        if (piece->getColor() == true) {  // white king
+          Vector2f position = getSquareCenter(7, 4);
+          piece->getSprite().setPosition(position);
+        } else {  // black king
+          Vector2f position = getSquareCenter(0, 4);
+          piece->getSprite().setPosition(position);
+        }
+      }
+
+      if (piece->getName() == "Pawn") {
+        if (piece->getColor() == true) {  // white pawn
+          Vector2f position = getSquareCenter(6, whitePawnCount);
+          piece->getSprite().setPosition(position);
+          whitePawnCount++;
+        } else {  // black pawn
+          Vector2f position = getSquareCenter(1, blackPawnCount);
+          piece->getSprite().setPosition(position);
+          blackPawnCount++;
+        }
+      }
+
+      if (piece->getName() == "Bishop") {
+        if (piece->getColor() == true) {  // white bishop
+          Vector2f position = getSquareCenter(7, (whiteBishopCount + 2));
+          piece->getSprite().setPosition(position);
+          whiteBishopCount = whiteBishopCount + 3;
+        } else {  // black bishop
+          Vector2f position = getSquareCenter(0, (blackBishopCount + 2));
+          piece->getSprite().setPosition(position);
+          blackBishopCount = blackBishopCount + 3;
+        }
+      }
+
+      if (piece->getName() == "Knight") {
+        if (piece->getColor() == true) {  // white knight
+          Vector2f position = getSquareCenter(7, (whiteKnightCount + 1));
+          piece->getSprite().setPosition(position);
+          whiteKnightCount = whiteKnightCount + 5;
+        } else {  // black knight
+          Vector2f position = getSquareCenter(0, (blackKnightCount + 1));
+          piece->getSprite().setPosition(position);
+          blackKnightCount = blackKnightCount + 5;
+        }
+      }
+
+      if (piece->getName() == "Rook") {
+        if (piece->getColor() == true) {  // white rook
+          Vector2f position = getSquareCenter(7, whiteRookCount);
+          piece->getSprite().setPosition(position);
+          whiteRookCount = whiteRookCount + 7;
+        } else {  // black rook
+          Vector2f position = getSquareCenter(0, blackRookCount);
+          piece->getSprite().setPosition(position);
+          blackRookCount = blackRookCount + 7;
+        }
+      }
+
+      LoadTextures::setSpriteParameters(piece->getSprite());
     }
   }
 
   // destructor
-  ~ChessBoard() {
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-        delete board[i][j];
-      }
-    }
-  }
-
-  // display board function
-  void printBoard() {
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-        cout << board[i][j] << ' ';
-      }
-      cout << endl;
-    }
-  }
+  ~ChessBoard(){};
 
   void setWhiteEval() {
     whiteEval = 0;  // place holder

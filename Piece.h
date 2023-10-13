@@ -12,20 +12,43 @@ class Piece {
   bool pieceColor;  // false is black, true is white
   bool hasMoved;    // to check two space move for pawn
 
+
  public:
+
+   Sprite sprite;
  
+    Piece(bool pieceColor): pieceColor(pieceColor) {
+        this->pieceColor = pieceColor;
+        if (pieceColor == true){
+            // white
+        }
+        else{
+           // black
+        }
+   
+    }
+
+void setPiecePosition(int row, int col) {
+    Vector2f position = getSquareCenter(row, col);
+    sprite.setPosition(position);
+}
+
+
+
+    virtual Sprite& getSprite() {return sprite;}
+
+    bool getColor() {return pieceColor; }
+
+    void draw(RenderWindow& window) const {
+        window.draw(sprite);
+    }
+
+
+
 
   virtual string getName() = 0;
 
-  virtual int getPieceValue() { return pieceValue; }
+  int getPieceValue() { return pieceValue; }
 
   virtual ~Piece(){};
-
-  virtual movePiece(){};
-
-  virtual Texture loadTexture(string str) {
-    Texture tmp;
-    if (!tmp.loadFromFile(str)) cout << "Error loading file\n";
-    return tmp;
-  }
 };
