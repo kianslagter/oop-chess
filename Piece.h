@@ -2,7 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+
 #include "loadTextures.h"
+#include "nearestSquare.h"
 using namespace std;
 using namespace sf;
 
@@ -12,39 +14,32 @@ class Piece {
   bool pieceColor;  // false is black, true is white
   bool hasMoved;    // to check two space move for pawn
 
-
  public:
+  Sprite sprite;
 
-   Sprite sprite;
- 
-    Piece(bool pieceColor): pieceColor(pieceColor) {
-        this->pieceColor = pieceColor;
-        if (pieceColor == true){
-            // white
-        }
-        else{
-           // black
-        }
-   
+  Piece(bool pieceColor) : pieceColor(pieceColor) {
+    this->pieceColor = pieceColor;
+    if (pieceColor == true) {
+      // white
+    } else {
+      // black
     }
+  }
 
-void setPiecePosition(int row, int col) {
+  virtual vector<Vector2f> getLegalMoves(int currentRow, int currentCol) {
+    return vector<Vector2f>();
+  }
+
+  void setPiecePosition(int row, int col) {
     Vector2f position = getSquareCenter(row, col);
     sprite.setPosition(position);
-}
+  }
 
+  virtual Sprite& getSprite() { return sprite; }
 
+  bool getColor() { return pieceColor; }
 
-    virtual Sprite& getSprite() {return sprite;}
-
-    bool getColor() {return pieceColor; }
-
-    void draw(RenderWindow& window) const {
-        window.draw(sprite);
-    }
-
-
-
+  void draw(RenderWindow& window) const { window.draw(sprite); }
 
   virtual string getName() = 0;
 

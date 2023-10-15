@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 
-#include "drawBoard.h"
-#include "loadTextures.h"
-#include "nearestSquare.h"
 #include "ChessBoard.h"
 #include "Piece.h"
 #include "Queen.h"
+#include "drawBoard.h"
+#include "loadTextures.h"
+#include "nearestSquare.h"
 using namespace sf;
 using namespace std;
 
@@ -23,11 +23,12 @@ int main() {
   // dragging pieces variables
   bool isDragging = false;
   Piece* draggedPiece = nullptr;
+  Vector2f initialPos = {0,0};
 
   // create chess board
   Board board(Color(238, 238, 210), Color(118, 150, 86));
 
-while (window.isOpen()) {
+  while (window.isOpen()) {
     Event event;
     while (window.pollEvent(event)) {
       switch (event.type) {
@@ -42,6 +43,8 @@ while (window.isOpen()) {
                       Vector2i(event.mouseButton.x, event.mouseButton.y)))) {
                 isDragging = true;
                 draggedPiece = piece;
+                // save initial position
+                initialPos = getClosestSquare(draggedPiece->getSprite().getPosition());
                 break;
               }
             }
@@ -53,7 +56,7 @@ while (window.isOpen()) {
             if (draggedPiece != nullptr) {
               Vector2f newPos =
                   getClosestSquare(draggedPiece->getSprite().getPosition());
-              draggedPiece->Piece::getSprite().setPosition(newPos);
+              ChessBoard::movePiece(pieces, draggedPiece, newPos, initialPos);
             }
           }
           break;
@@ -67,7 +70,6 @@ while (window.isOpen()) {
           break;
       }
     }
-
 
     window.clear();
 

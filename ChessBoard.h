@@ -13,6 +13,7 @@ using namespace sf;
 #include "Piece.h"
 #include "Queen.h"
 #include "Rook.h"
+#include "nearestSquare.h"
 
 class ChessBoard {
  private:
@@ -143,33 +144,65 @@ class ChessBoard {
     }
   }
 
-  // destructor
-  ~ChessBoard(){};
-
-  void setWhiteEval() {
-    whiteEval = 0;  // place holder
-  }
-
-  void setBlackEval() {
-    blackEval = 0;  // place holder
-  }
-
-  void setEval() { eval = whiteEval - blackEval; }
-
-  int getEval() { return eval; }
-
-  void displayEval() { cout << "Current Eval:" << getEval() << endl; }
-
-  void displayMove() {
-    if (moveCount % 2 == 0) {
-      cout << "Move: " << (moveCount + 1) << endl
-           << "White"
-           << "to play." << endl;
-
-    } else {
-      cout << "Move: " << (moveCount + 1) << endl
-           << "Black"
-           << "to play." << endl;
+  // gets index of piece to be removed
+  static int getPieceIndexAtPosition(vector<Piece*>& pieces,
+                                     Vector2f position) {
+    for (int i = 0; i < pieces.size(); i++) {
+      if (pieces[i]->getSprite().getPosition() == position) {
+        return i;
+      }
     }
+    return -1;  // if no piece was found
   }
-};
+
+  // moves a piece to a new position
+  static void movePiece(vector<Piece*>& pieces, Piece* piece,
+                        Vector2f newPosition, Vector2f initialPosition ) {
+    // check if there is piece at new position
+    int pieceIndex = getPieceIndexAtPosition(pieces, newPosition);
+    if (pieceIndex != -1) {
+      Piece* otherPiece = pieces[pieceIndex];
+      if (otherPiece->getColor() != piece->getColor()) {
+        // if opposite color delete piece
+        delete otherPiece;
+        pieces.erase(pieces.begin() + pieceIndex);
+      } else {
+        // if piece is same color go back to initial pos
+        piece->getSprite().setPosition(initialPosition);
+        return;
+      }
+    }
+      // move the piece to the new position
+      piece->getSprite().setPosition(newPosition);
+    }
+
+    // destructor
+    ~ChessBoard(){};
+
+    void setWhiteEval() {
+      whiteEval = 0;  // place holder
+    }
+
+    void setBlackEval() {
+      blackEval = 0;  // place holder
+    }
+
+    void setEval() { eval = whiteEval - blackEval; }
+
+    int getEval() { return eval; }
+
+    void displayEval() { cout << "Current Eval:" << getEval() << endl; }
+
+    void displayMove() {
+      if (moveCount % 2 == 0) {
+        cout << "Move: " << (moveCount + 1) << endl
+             << "White"
+             << "to play." << endl;
+
+      } else {
+        cout << "Move: " << (moveCount + 1) << endl
+             << "Black"
+             << "to play." << endl;
+      }
+    }
+  };
