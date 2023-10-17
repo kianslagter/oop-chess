@@ -2,6 +2,13 @@
 2023 OOP Project
 
 # Missing Features
-Features not present that otherwise would be in Chess are Castling, and En Passant.
+* Castling
+* En Passant
+* Choosing Promotions
+
 
 # Alterations from Project Plan
+
+# Authors
+* Kian Slagter
+* Manjeevan Bhullar
