@@ -3,8 +3,15 @@ Two-player Chess game with GUI in C++ using OOP.
 
 # Installation / Compiling
 
+* Prerequisites
+  - SFML
 
-# Missing Features
+$ git clone https://github.com/kianslagter/oop-chess.git
+$ cd oop-chess
+$ make
+$ ./run.out
+
+# Missing Features / Limitations
 * Castling
 * En Passant
 * Choosing Promotions
@@ -12,8 +19,11 @@ Two-player Chess game with GUI in C++ using OOP.
 * Check detection / Check mate
   - There is no in built detection for check, and thus no automatic check mate detection, instead when king is captured game finishes.
 
-
 # Alterations from Project Plan
+* General Name Changes
+  - General name changes of certain functions and attributes where done.
+* Menu
+  - No menu was added
 * drawBoard
   - Replaced function drawBoard() with seperate class, drawBoard.h to draw the chess board.
 * ChessBoard Class
