@@ -4,9 +4,10 @@ Two-player Chess game with GUI in C++ using OOP.
 # Installation / Compiling
 
 * Prerequisites
-  - SFML.
+  - SFML
 
-```shell
+Instilation and compiling process.
+```
  $ git clone https://github.com/kianslagter/oop-chess.git
  $ cd oop-chess
  $ make
@@ -25,7 +26,7 @@ Two-player Chess game with GUI in C++ using OOP.
 * General Name Changes
   - General name changes of certain functions and attributes where done.
 * Menu
-  - No menu was added
+  - No menu was added, with ability to quit game being featured in terminal.
 * drawBoard
   - Replaced function drawBoard() with seperate class, drawBoard.h to draw the chess board.
 * ChessBoard Class
