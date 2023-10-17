@@ -23,8 +23,10 @@ Two-player Chess game with GUI in C++ using OOP.
 * King Class
   - checkCheck attribute in king class is removed, and all functions using it.
   - Function kingStatus() replaced with isKingTaken() function in chessBoard.h.
- * nearestSquare Class
+* nearestSquare Class
   - Added nearestSquare.h class, with functions getClosestSquare(), and getSquareCenter().
+* loadTextures Class
+  - Added loadTextures.h class, allowing for the correct piece textures to be displayed.
 
 # Authors
 * Kian Slagter
