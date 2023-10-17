@@ -1,5 +1,8 @@
-# oop-chess
-2023 OOP Project
+# Chess - OOP
+
+
+# Installation / Compiling
+
 
 # Missing Features
 * Castling
@@ -8,6 +11,7 @@
 
 
 # Alterations from Project Plan
+* Function drawBoard() replaced with seperate class, drawBoard.h
 
 # Authors
 * Kian Slagter
