@@ -21,16 +21,14 @@ Installation and compiling process.
   - Pawn automatically promotes to queen, with no option for user to choose another piece.
 * Check detection / Check mate
   - There is no in built detection for check, and thus no automatic check mate detection, instead when king is captured game finishes.
+* Pawn Captures
+  - Pawn captures do not take place diagonally and instead when facing another piece in front.
 
 # Alterations from Project Plan
 * General Name Changes
   - General name changes of certain functions and attributes where done.
 * Menu
-<<<<<<< HEAD
-  - No menu was added, with ability to quit game being featured in terminal.
-=======
   - No menu was added, instead ability to quit game being featured through terminal.
->>>>>>> 823b74da9a4a8f87b78792f01c97894a14d47972
 * drawBoard
   - Replaced function drawBoard() with seperate class, drawBoard.h to draw the chess board.
 * ChessBoard Class
