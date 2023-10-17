@@ -26,7 +26,7 @@ Installation and compiling process.
 * General Name Changes
   - General name changes of certain functions and attributes where done.
 * Menu
-  - No menu was added, with ability to quit game being featured in terminal.
+  - No menu was added, instead ability to quit game being featured through terminal.
 * drawBoard
   - Replaced function drawBoard() with seperate class, drawBoard.h to draw the chess board.
 * ChessBoard Class
