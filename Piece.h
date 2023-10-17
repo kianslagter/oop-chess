@@ -3,19 +3,19 @@
 #include <iostream>
 #include <string>
 
+#include "gameEntity.h"
 #include "loadTextures.h"
 #include "nearestSquare.h"
 using namespace std;
 using namespace sf;
 
-class Piece {
+class Piece : public GameEntity {
  private:
   int pieceValue;
   bool pieceColor;  // false is black, true is white
 
  public:
   bool hasMoved;
-  Sprite sprite;
 
   Piece(bool pieceColor) : pieceColor(pieceColor), hasMoved(false) {
     this->pieceColor = pieceColor;
@@ -58,15 +58,23 @@ bool isPieceAtPosition(Vector2f position, vector<Piece*>& pieces) {
     sprite.setPosition(position);
   }
 
-  virtual Sprite& getSprite() { return sprite; }
+  int getRow() {
+    Vector2f position = this->getSprite().getPosition();
+    int row = position.y / 64;
+    return row;
+}
+
+int getCol() {
+    Vector2f position = this->getSprite().getPosition();
+    int col = position.x / 64;
+
+    return col;
+}
 
   bool getColor() { return pieceColor; }
-
-  void draw(RenderWindow& window) const { window.draw(sprite); }
 
   virtual string getName() = 0;
 
   int getPieceValue() { return pieceValue; }
 
-  virtual ~Piece(){};
 };

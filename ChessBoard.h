@@ -23,6 +23,8 @@ class ChessBoard {
   int moveCount = 0;
 
  public:
+  bool moveSuccessful;
+
   void initialiseChessBoard(vector<Piece*>& pieces) {
     // create white pieces
     pieces.push_back(new Queen(true));
@@ -157,18 +159,19 @@ class ChessBoard {
   }
 
   // moves a piece to a new position
- void movePiece(vector<Piece*>& pieces, Piece* piece,
-                        Vector2f newPosition, Vector2f initialPosition) {
+  void movePiece(vector<Piece*>& pieces, Piece* piece, Vector2f newPosition,
+                 Vector2f initialPosition) {
     // Get the current position of the piece
     int currentRow =
         initialPosition.y / 64;  // Assuming each square is 64 units
     int currentCol = initialPosition.x / 64;
     // Get the legal moves for the piece
-    vector<Vector2f> legalMoves = piece->getLegalMoves(currentRow, currentCol, pieces);
+    vector<Vector2f> legalMoves =
+        piece->getLegalMoves(currentRow, currentCol, pieces);
     // Check if the new position is a legal move
     bool isLegalMove = false;
     for (Vector2f move : legalMoves) {
-      if (getSquareCenter(move.x,move.y) == newPosition) {
+      if (getSquareCenter(move.x, move.y) == newPosition) {
         isLegalMove = true;
         break;
       }
@@ -192,10 +195,29 @@ class ChessBoard {
         return;
       }
     }
+
+    // Check for promotion
+    if ((piece->getName() == "Pawn" && piece->getColor() == true &&
+         currentRow == 0) ||
+        (piece->getName() == "Pawn" && piece->getColor() == false &&
+         currentRow == 7)) {
+      Pawn::promotePawn(pieces, currentRow, currentCol, piece->getColor());
+    }
+
     // move the piece to the new position
     piece->getSprite().setPosition(newPosition);
     piece->hasMoved = true;
     displayMove();
+    moveSuccessful = true;
+  }
+
+  bool isKingTaken(bool color, vector<Piece*>& pieces) {
+    for (Piece* piece : pieces) {
+      if (piece->getName() == "King" && piece->getColor() == color) {
+        return false;  // King of the given color is still on the board
+      }
+    }
+    return true;  // King of the given color is not on the board
   }
 
   // destructor
@@ -215,7 +237,7 @@ class ChessBoard {
 
   void displayEval() { cout << "Current Eval:" << getEval() << endl; }
 
- void displayMove() {
+  void displayMove() {
     if (moveCount % 2 == 0) {
       cout << "Move: " << (moveCount + 1) << endl
            << "White "
