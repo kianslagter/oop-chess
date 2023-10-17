@@ -6,7 +6,7 @@ Two-player Chess game with GUI in C++ using OOP.
 * Prerequisites
   - SFML
 
-Instilation and compiling process.
+Installation and compiling process.
 ```
  $ git clone https://github.com/kianslagter/oop-chess.git
  $ cd oop-chess
