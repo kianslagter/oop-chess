@@ -205,10 +205,10 @@ class ChessBoard {
 
     // check for promotion
     if ((piece->getName() == "Pawn" && piece->getColor() == true &&
-         currentRow == 0) ||
+         piece->getRow() == 0) ||
         (piece->getName() == "Pawn" && piece->getColor() == false &&
-         currentRow == 7)) {
-      Pawn::promotePawn(pieces, currentRow, currentCol, piece->getColor());
+         piece->getRow() == 7)) {
+      //Pawn::promotePawn(pieces, piece->getRow(), piece->getCol(), piece->getColor());
     }
 
     // move the piece to the new position

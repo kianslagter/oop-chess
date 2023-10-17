@@ -20,7 +20,7 @@ class Pawn : public Piece {
   static Texture whitePawn;
 
  public:
- // constructor
+  // constructor
   Pawn(bool pieceColor) : Piece(pieceColor) {
     if (pieceColor == true) {
       LoadTextures::loadWhitePawn();
@@ -32,48 +32,48 @@ class Pawn : public Piece {
   }
 
   // gets legal moves for piece
-vector<Vector2f> getLegalMoves(int currentRow, int currentCol,
-                               vector<Piece*>& pieces) override {
-  vector<Vector2f> legalMoves;
+  vector<Vector2f> getLegalMoves(int currentRow, int currentCol,
+                                 vector<Piece*>& pieces) override {
+    vector<Vector2f> legalMoves;
 
-  // up or down based on colour
-  int direction = (getColor() == true) ? -1 : 1;
+    // up or down based on colour
+    int direction = (getColor() == true) ? -1 : 1;
 
-  // capture diagnal
-  int capture_dx[] = {-1, 1};
-  int capture_dy[] = {1 * direction, 1 * direction};
+    // capture diagnal
+    int capture_dx[] = {1 * direction, 1 * direction};
+    int capture_dy[] = {-1, 1};
 
-  // forward moves
-  int forwardRow = currentRow + direction;  
-  if (forwardRow >= 0 && forwardRow < 8 &&
-      !isPieceAtPosition(Vector2f(forwardRow, currentCol), pieces)) {
-    legalMoves.push_back(Vector2f(forwardRow, currentCol));
+    // forward moves
+    int forwardRow = currentRow + direction;
+    if (forwardRow >= 0 && forwardRow < 8 &&
+        !isPieceAtPosition(Vector2f(forwardRow, currentCol), pieces)) {
+      legalMoves.push_back(Vector2f(forwardRow, currentCol));
 
-    if (!hasMoved) {  // for first move
-      forwardRow = currentRow + 2 * direction;
-      if (forwardRow >= 0 && forwardRow < 8 &&
-          !isPieceAtPosition(Vector2f(forwardRow, currentCol), pieces)) {
-        legalMoves.push_back(Vector2f(forwardRow, currentCol));
+      if (!hasMoved) {  // for first move
+        forwardRow = currentRow + 2 * direction;
+        if (forwardRow >= 0 && forwardRow < 8 &&
+            !isPieceAtPosition(Vector2f(forwardRow, currentCol), pieces)) {
+          legalMoves.push_back(Vector2f(forwardRow, currentCol));
+        }
       }
     }
-  }
 
-  // check for capture
-  for (int i = 0; i < 2; ++i) {
-    int captureRow = currentRow + capture_dx[i];
-    int captureCol = currentCol + capture_dy[i];
-    if (captureRow >= 0 && captureRow < 8 && captureCol >= 0 && captureCol < 8) {
-      if (isPieceAtPosition(Vector2f(captureRow, captureCol), pieces)) {
-        legalMoves.push_back(Vector2f(captureRow, captureCol));
+    // check for capture
+    for (int i = 0; i < 2; ++i) {
+      int captureRow = currentRow + capture_dx[i];
+      int captureCol = currentCol + capture_dy[i];
+      if (captureRow >= 0 && captureRow < 8 && captureCol >= 0 &&
+          captureCol < 8) {
+        if (isPieceAtPosition(Vector2f(captureRow, captureCol), pieces)) {
+          legalMoves.push_back(Vector2f(captureRow, captureCol));
+        }
       }
     }
+
+    return legalMoves;
   }
 
-  return legalMoves;
-}
-
-
- // gets sprite of piece
+  // gets sprite of piece
   Sprite& getSprite() override { return sprite; }
 
   // gets name of piece
@@ -82,22 +82,23 @@ vector<Vector2f> getLegalMoves(int currentRow, int currentCol,
   // gets value of piece
   int getPieceValue() override { return pieceValue; }
 
-  static void promotePawn(vector<Piece*>& pieces, int row, int col,
-                          bool color) {
-    // find pawn in vector
-    for (int i = 0; i < pieces.size(); ++i) {
-      if (pieces[i]->getRow() == row && pieces[i]->getCol() == col) {
-        // delete the pawn
-        delete pieces[i];
-        // replace with queen
-        pieces[i] = new Queen(color);
-        Vector2f position = getSquareCenter(row, col);
-        pieces[i]->getSprite().setPosition(position);
 
-        break;
-      }
-    }
-  }
+ // static void promotePawn(vector<Piece*>& pieces, int row, int col,
+ //                         bool color) {
+ //   int pieceIndex = getPieceIndexAtPosition(pieces, Vector2f(row, col));
+    // find pawn in vector
+ //   for (int i = 0; i < pieces.size(); ++i) {
+      // delete the pawn
+  //    delete pieces[i];
+    //  pieces.erase(pieces.begin() + pieceIndex);
+      // replace with queen
+      //pieces[i] = new Queen(color);
+  //    Vector2f position = getSquareCenter(row, col);
+  //    pieces[i]->getSprite().setPosition(position);
+   //   LoadTextures::setSpriteParameters(pieces[i]->getSprite());
+     // break;
+   // }
+  //}
 
   ~Pawn() override{};
 };
