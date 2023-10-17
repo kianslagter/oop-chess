@@ -1,3 +1,5 @@
+// chessboard class contains insitalising all piece classes and their locations,
+// additonally with the function to move pieces and take other pieces
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <array>
@@ -25,6 +27,7 @@ class ChessBoard {
   int blackEval = 0;
   int eval = 0;
 
+  // create all piece classes
   void initialiseChessBoard(vector<Piece*>& pieces) {
     // create white pieces
     pieces.push_back(new Queen(true));
@@ -72,7 +75,7 @@ class ChessBoard {
     int whiteRookCount = 0;
     int blackRookCount = 0;
 
-    // Set initial positions for each piece
+    // set initial positions for each piece
     for (Piece* piece : pieces) {
       if (piece->getName() == "Queen") {
         if (piece->getColor() == true) {  // white queen
@@ -161,14 +164,13 @@ class ChessBoard {
   // moves a piece to a new position
   void movePiece(vector<Piece*>& pieces, Piece* piece, Vector2f newPosition,
                  Vector2f initialPosition) {
-    // Get the current position of the piece
+    // get the current position of the piece
     int currentRow =
-        initialPosition.y / 64;  // Assuming each square is 64 units
+        initialPosition.y / 64; 
     int currentCol = initialPosition.x / 64;
-    // Get the legal moves for the piece
     vector<Vector2f> legalMoves =
         piece->getLegalMoves(currentRow, currentCol, pieces);
-    // Check if the new position is a legal move
+    // check if move is legal
     bool isLegalMove = false;
     for (Vector2f move : legalMoves) {
       if (getSquareCenter(move.x, move.y) == newPosition) {
@@ -176,8 +178,7 @@ class ChessBoard {
         break;
       }
     }
-    if (!isLegalMove) {
-      // If the move is not legal, don't move the piece and return
+    if (!isLegalMove) {// if move is not legal
       piece->getSprite().setPosition(initialPosition);
       return;
     }
@@ -202,7 +203,7 @@ class ChessBoard {
       }
     }
 
-    // Check for promotion
+    // check for promotion
     if ((piece->getName() == "Pawn" && piece->getColor() == true &&
          currentRow == 0) ||
         (piece->getName() == "Pawn" && piece->getColor() == false &&
@@ -223,10 +224,10 @@ class ChessBoard {
   bool isKingTaken(bool color, vector<Piece*>& pieces) {
     for (Piece* piece : pieces) {
       if (piece->getName() == "King" && piece->getColor() == color) {
-        return false;  // King of the given color is still on the board
+        return false;  // king still alive
       }
     }
-    return true;  // King of the given color is not on the board
+    return true;  // king dead
   }
 
   // destructor
@@ -234,8 +235,10 @@ class ChessBoard {
 
   int getEval() { return eval; }
 
+  // display eval
   void displayEval() { cout << "Current Eval: " << getEval() << "\n" << endl; }
 
+  // display move count
   void displayMove() {
     if (moveCount % 2 == 0) {
       cout << "Move: " << (moveCount + 1) << endl

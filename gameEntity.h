@@ -1,3 +1,4 @@
+// base class for all objects and pieces
 #pragma once
 #include <SFML/Graphics.hpp>
 using namespace sf;

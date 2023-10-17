@@ -1,3 +1,4 @@
+// bishop piece class inherited from piece.h
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -11,10 +12,12 @@ using namespace sf;
 class Bishop : public Piece {
  private:
   int pieceValue = 3;
+  // textures for piece
   static Texture blackBishop;
   static Texture whiteBishop;
 
  public:
+ // constructor
   Bishop(bool pieceColor) : Piece(pieceColor) {
     if (pieceColor == true) {
       LoadTextures::loadWhiteBishop();
@@ -25,11 +28,12 @@ class Bishop : public Piece {
     }
   }
 
+  // gets legal moves for piece
   vector<Vector2f> getLegalMoves(int currentRow, int currentCol,
                                  vector<Piece*>& pieces) override {
     vector<Vector2f> legalMoves;
 
-    // Diagonal moves
+    // diagonal moves
     for (int i = -7; i <= 7; ++i) {
       if (i != 0) {
         int row = currentRow + i;
@@ -37,14 +41,14 @@ class Bishop : public Piece {
         if (row >= 0 && row < 8 && col >= 0 && col < 8) {
           if (!isPathBlocked(currentRow, currentCol, row, col, pieces)) {
             legalMoves.push_back(
-                Vector2f(row, col));  // Moves along the main diagonal
+                Vector2f(row, col));  // main diagonal moves
           }
         }
         col = currentCol - i;
         if (row >= 0 && row < 8 && col >= 0 && col < 8) {
           if (!isPathBlocked(currentRow, currentCol, row, col, pieces)) {
             legalMoves.push_back(
-                Vector2f(row, col));  // Moves along the secondary diagonal
+                Vector2f(row, col));  // second diagonal moves
           }
         }
       }
@@ -53,6 +57,7 @@ class Bishop : public Piece {
     return legalMoves;
   }
 
+  // checks if a pieces path of movement is blocked
   bool isPathBlocked(int currentRow, int currentCol, int targetRow,
                      int targetCol, vector<Piece*>& pieces) override {
     int rowDirection = (targetRow - currentRow > 0) ? 1 : -1;
@@ -68,11 +73,16 @@ class Bishop : public Piece {
     return false;
   }
 
+
+  // gets sprite of piece
   Sprite& getSprite() override { return sprite; }
 
+  // gets name of piece
   string getName() override { return "Bishop"; }
 
+  // gets value of piece
   int getPieceValue() override { return pieceValue; }
 
+  // destructor
   ~Bishop() override{};
 };

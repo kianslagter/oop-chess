@@ -1,3 +1,4 @@
+// class to draw the chessboard squares using sfml
 #pragma once
 
 #include <iostream>

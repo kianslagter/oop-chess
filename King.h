@@ -1,3 +1,4 @@
+// king piece class inherited from piece.h
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -10,10 +11,12 @@ using namespace sf;
 
 class King : public Piece {
  private:
+ // textures for piece
   static Texture blackKing;
   static Texture whiteKing;
 
  public:
+  // constructor
   King(bool pieceColor) : Piece(pieceColor) {
     if (pieceColor == true) {
       LoadTextures::loadWhiteKing();
@@ -24,13 +27,14 @@ class King : public Piece {
     }
   }
 
+  // gets legal moves for piece
 vector<Vector2f> getLegalMoves(int currentRow, int currentCol, vector<Piece*>& pieces) override {
     vector<Vector2f> legalMoves;
 
-    // Moves in all eight directions
+    // move in all directions
     for (int i = -1; i <= 1; ++i) {
         for (int j = -1; j <= 1; ++j) {
-            if (i != 0 || j != 0) { // Exclude the current square
+            if (i != 0 || j != 0) { // exclude the current square
                 int row = currentRow + i;
                 int col = currentCol + j;
                 if (row >= 0 && row < 8 && col >= 0 && col < 8) {
@@ -46,7 +50,7 @@ vector<Vector2f> getLegalMoves(int currentRow, int currentCol, vector<Piece*>& p
 }
 
 
-
+  // gets sprite of piece
   Sprite& getSprite() override { return sprite; }
 
   string getName() override { return "King"; }

@@ -1,3 +1,4 @@
+// test function for loading textures with sfml
 #include <SFML/Graphics.hpp>
 #include "loadTextures.h"
 using namespace sf;

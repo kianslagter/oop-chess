@@ -1,9 +1,9 @@
+// test function for nearest squre calculation
 #include <iostream>
 #include "nearestSquare.h"
 using namespace std;
 
 int main() {
-    // Test the function with some values
     int row = 1;
     int col = 1;
 

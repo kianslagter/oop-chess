@@ -1,3 +1,5 @@
+// simple file to check for closest square to coordinates, and also to find
+// coordinates of a squares center
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -12,7 +14,7 @@ Vector2f getClosestSquare(Vector2f pos) {
 }
 
 Vector2f getSquareCenter(int row, int col) {
-    float x = col * 64.0f + 64.0f / 2;
-    float y = row * 64.0f + 64.0f / 2;
-    return Vector2f(x, y);
+  float x = col * 64.0f + 64.0f / 2;
+  float y = row * 64.0f + 64.0f / 2;
+  return Vector2f(x, y);
 }

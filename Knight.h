@@ -1,3 +1,4 @@
+// knight piece class inherited from piece.h
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -9,10 +10,12 @@ using namespace sf;
 class Knight : public Piece {
  private:
   int pieceValue = 3;
+  // textures for piece
   static Texture blackKnight;
   static Texture whiteKnight;
 
  public:
+  // constructor
   Knight(bool pieceColor) : Piece(pieceColor) {
     if (pieceColor == true) {
       LoadTextures::loadWhiteKnight();
@@ -23,11 +26,12 @@ class Knight : public Piece {
     }
   }
 
+  // gets legal moves for piece
   vector<Vector2f> getLegalMoves(int currentRow, int currentCol,
                                  vector<Piece*>& pieces) override {
     vector<Vector2f> legalMoves;
 
-    // Moves in L shape
+    // moves for L shape knight
     int dx[] = {-2, -1, 1, 2, 2, 1, -1, -2};
     int dy[] = {1, 2, 2, 1, -1, -2, -2, -1};
 
@@ -44,6 +48,7 @@ class Knight : public Piece {
     return legalMoves;
   }
 
+// gets sprite of piece
   Sprite& getSprite() override { return sprite; }
 
   string getName() override { return "Knight"; }

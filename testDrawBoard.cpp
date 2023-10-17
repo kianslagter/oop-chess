@@ -1,10 +1,11 @@
+// test the drawboard function
 #include "drawBoard.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
 int main() {
-    // create SFML window
+    // create sfml window
     RenderWindow window(VideoMode(512, 512), "Chess Board");
 
     // create board
