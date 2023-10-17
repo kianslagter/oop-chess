@@ -69,7 +69,7 @@ class Rook : public Piece {
 
   string getName() override { return "Rook"; }
 
-  int getPieceValue() { return pieceValue; }
+  int getPieceValue() override { return pieceValue; }
 
   ~Rook() override{};
 };

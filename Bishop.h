@@ -72,7 +72,7 @@ class Bishop : public Piece {
 
   string getName() override { return "Bishop"; }
 
-  int getPieceValue() { return pieceValue; }
+  int getPieceValue() override { return pieceValue; }
 
   ~Bishop() override{};
 };

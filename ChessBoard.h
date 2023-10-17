@@ -17,13 +17,13 @@ using namespace sf;
 
 class ChessBoard {
  private:
-  int whiteEval;
-  int blackEval;
-  int eval;
   int moveCount = 0;
 
  public:
   bool moveSuccessful;
+  int whiteEval = 0;
+  int blackEval = 0;
+  int eval = 0;
 
   void initialiseChessBoard(vector<Piece*>& pieces) {
     // create white pieces
@@ -186,6 +186,12 @@ class ChessBoard {
     if (pieceIndex != -1) {
       Piece* otherPiece = pieces[pieceIndex];
       if (otherPiece->getColor() != piece->getColor()) {
+        // eval
+        if (otherPiece->getColor() == true) {
+          blackEval = (blackEval + (otherPiece->getPieceValue()));
+        } else {
+          whiteEval = (whiteEval + (otherPiece->getPieceValue()));
+        }
         // if opposite color delete piece
         delete otherPiece;
         pieces.erase(pieces.begin() + pieceIndex);
@@ -207,7 +213,10 @@ class ChessBoard {
     // move the piece to the new position
     piece->getSprite().setPosition(newPosition);
     piece->hasMoved = true;
+
+    eval = (whiteEval - blackEval);
     displayMove();
+    displayEval();
     moveSuccessful = true;
   }
 
@@ -223,30 +232,22 @@ class ChessBoard {
   // destructor
   ~ChessBoard(){};
 
-  void setWhiteEval() {
-    whiteEval = 0;  // place holder
-  }
-
-  void setBlackEval() {
-    blackEval = 0;  // place holder
-  }
-
-  void setEval() { eval = whiteEval - blackEval; }
-
   int getEval() { return eval; }
 
-  void displayEval() { cout << "Current Eval:" << getEval() << endl; }
+  void displayEval() { cout << "Current Eval: " << getEval() << "\n" << endl; }
 
   void displayMove() {
     if (moveCount % 2 == 0) {
       cout << "Move: " << (moveCount + 1) << endl
            << "White "
-           << "to play." << endl;
+           << "to play.\n"
+           << endl;
 
     } else {
       cout << "Move: " << (moveCount + 1) << endl
            << "Black "
-           << "to play." << endl;
+           << "to play.\n"
+           << endl;
     }
     moveCount++;
   }

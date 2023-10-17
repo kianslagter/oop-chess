@@ -101,7 +101,7 @@ vector<Vector2f> getLegalMoves(int currentRow, int currentCol, vector<Piece*>& p
 
   string getName() override { return "Queen"; }
 
-  int getPieceValue() { return pieceValue; }
+  int getPieceValue() override { return pieceValue; }
 
   ~Queen() override{};
 };

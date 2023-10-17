@@ -75,6 +75,6 @@ int getCol() {
 
   virtual string getName() = 0;
 
-  int getPieceValue() { return pieceValue; }
+  virtual int getPieceValue() { return pieceValue; }
 
 };

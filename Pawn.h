@@ -68,7 +68,7 @@ class Pawn : public Piece {
 
   string getName() override { return "Pawn"; }
 
-  int getPieceValue() { return pieceValue; }
+  int getPieceValue() override { return pieceValue; }
 
   static void promotePawn(vector<Piece*>& pieces,
                           int row, int col, bool color) {
