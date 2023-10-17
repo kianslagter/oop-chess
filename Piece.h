@@ -12,12 +12,12 @@ class Piece {
  private:
   int pieceValue;
   bool pieceColor;  // false is black, true is white
-  bool hasMoved;    // to check two space move for pawn
 
  public:
+  bool hasMoved;
   Sprite sprite;
 
-  Piece(bool pieceColor) : pieceColor(pieceColor) {
+  Piece(bool pieceColor) : pieceColor(pieceColor), hasMoved(false) {
     this->pieceColor = pieceColor;
     if (pieceColor == true) {
       // white
@@ -26,9 +26,32 @@ class Piece {
     }
   }
 
-  virtual vector<Vector2f> getLegalMoves(int currentRow, int currentCol) {
+  virtual vector<Vector2f> getLegalMoves(int currentRow, int currentCol, vector<Piece*>& pieces) {
     return vector<Vector2f>();
   }
+
+
+bool isPieceAtPosition(Vector2f position, vector<Piece*>& pieces) {
+    for (Piece* piece : pieces) {
+        if (piece->getSprite().getPosition() == position) {
+            return true;
+        }
+    }
+    return false;
+}
+  virtual bool isPathBlocked(int currentRow, int currentCol, int targetRow, int targetCol, vector<Piece*>& pieces) {
+    return false;
+  }
+
+  Piece* getPieceAtPosition(Vector2f position, vector<Piece*>& pieces) {
+    for (Piece* piece : pieces) {
+        if (getClosestSquare(piece->getSprite().getPosition()) == position) {
+            return piece;
+        }
+    }
+    return nullptr;
+}
+
 
   void setPiecePosition(int row, int col) {
     Vector2f position = getSquareCenter(row, col);

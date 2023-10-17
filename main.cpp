@@ -13,12 +13,14 @@ using namespace sf;
 using namespace std;
 
 int main() {
+  ChessBoard ChessBoard;
+
   // create window
   RenderWindow window(VideoMode(512, 512), "OOP Chess");
 
   // add pieces to vector
   vector<Piece*> pieces;
-  ChessBoard::initialiseChessBoard(pieces);
+  ChessBoard.initialiseChessBoard(pieces);
 
   // dragging pieces variables
   bool isDragging = false;
@@ -56,7 +58,7 @@ int main() {
             if (draggedPiece != nullptr) {
               Vector2f newPos =
                   getClosestSquare(draggedPiece->getSprite().getPosition());
-              ChessBoard::movePiece(pieces, draggedPiece, newPos, initialPos);
+              ChessBoard.movePiece(pieces, draggedPiece, newPos, initialPos);
             }
           }
           break;

@@ -20,10 +20,10 @@ class ChessBoard {
   int whiteEval;
   int blackEval;
   int eval;
-  int moveCount;
+  int moveCount = 0;
 
  public:
-  static void initialiseChessBoard(vector<Piece*>& pieces) {
+  void initialiseChessBoard(vector<Piece*>& pieces) {
     // create white pieces
     pieces.push_back(new Queen(true));
     pieces.push_back(new King(true));
@@ -142,6 +142,7 @@ class ChessBoard {
 
       LoadTextures::setSpriteParameters(piece->getSprite());
     }
+    displayMove();
   }
 
   // gets index of piece to be removed
@@ -156,8 +157,27 @@ class ChessBoard {
   }
 
   // moves a piece to a new position
-  static void movePiece(vector<Piece*>& pieces, Piece* piece,
-                        Vector2f newPosition, Vector2f initialPosition ) {
+ void movePiece(vector<Piece*>& pieces, Piece* piece,
+                        Vector2f newPosition, Vector2f initialPosition) {
+    // Get the current position of the piece
+    int currentRow =
+        initialPosition.y / 64;  // Assuming each square is 64 units
+    int currentCol = initialPosition.x / 64;
+    // Get the legal moves for the piece
+    vector<Vector2f> legalMoves = piece->getLegalMoves(currentRow, currentCol, pieces);
+    // Check if the new position is a legal move
+    bool isLegalMove = false;
+    for (Vector2f move : legalMoves) {
+      if (getSquareCenter(move.x,move.y) == newPosition) {
+        isLegalMove = true;
+        break;
+      }
+    }
+    if (!isLegalMove) {
+      // If the move is not legal, don't move the piece and return
+      piece->getSprite().setPosition(initialPosition);
+      return;
+    }
     // check if there is piece at new position
     int pieceIndex = getPieceIndexAtPosition(pieces, newPosition);
     if (pieceIndex != -1) {
@@ -172,37 +192,40 @@ class ChessBoard {
         return;
       }
     }
-      // move the piece to the new position
-      piece->getSprite().setPosition(newPosition);
+    // move the piece to the new position
+    piece->getSprite().setPosition(newPosition);
+    piece->hasMoved = true;
+    displayMove();
+  }
+
+  // destructor
+  ~ChessBoard(){};
+
+  void setWhiteEval() {
+    whiteEval = 0;  // place holder
+  }
+
+  void setBlackEval() {
+    blackEval = 0;  // place holder
+  }
+
+  void setEval() { eval = whiteEval - blackEval; }
+
+  int getEval() { return eval; }
+
+  void displayEval() { cout << "Current Eval:" << getEval() << endl; }
+
+ void displayMove() {
+    if (moveCount % 2 == 0) {
+      cout << "Move: " << (moveCount + 1) << endl
+           << "White "
+           << "to play." << endl;
+
+    } else {
+      cout << "Move: " << (moveCount + 1) << endl
+           << "Black "
+           << "to play." << endl;
     }
-
-    // destructor
-    ~ChessBoard(){};
-
-    void setWhiteEval() {
-      whiteEval = 0;  // place holder
-    }
-
-    void setBlackEval() {
-      blackEval = 0;  // place holder
-    }
-
-    void setEval() { eval = whiteEval - blackEval; }
-
-    int getEval() { return eval; }
-
-    void displayEval() { cout << "Current Eval:" << getEval() << endl; }
-
-    void displayMove() {
-      if (moveCount % 2 == 0) {
-        cout << "Move: " << (moveCount + 1) << endl
-             << "White"
-             << "to play." << endl;
-
-      } else {
-        cout << "Move: " << (moveCount + 1) << endl
-             << "Black"
-             << "to play." << endl;
-      }
-    }
-  };
+    moveCount++;
+  }
+};

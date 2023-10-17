@@ -23,73 +23,73 @@ class LoadTextures {
 
   static void loadBlackKing() {
     if (!blackKing.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_king.png"))
+            "oop-chess/Textures/b_king.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadBlackQueen() {
     if (!blackQueen.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_queen.png"))
+            "oop-chess/Textures/b_queen.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadBlackRook() {
     if (!blackRook.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_rook.png"))
+            "oop-chess/Textures/b_rook.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadBlackKnight() {
     if (!blackKnight.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_knight.png"))
+            "oop-chess/Textures/b_knight.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadBlackBishop() {
     if (!blackBishop.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_bishop.png"))
+            "oop-chess/Textures/b_bishop.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadBlackPawn() {
     if (!blackPawn.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/b_pawn.png"))
+            "oop-chess/Textures/b_pawn.png"))
       cout << "Could not load texture\n";
   }
 
     static void loadWhiteKing() {
     if (!whiteKing.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_king.png"))
+            "oop-chess/Textures/w_king.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadWhiteQueen() {
     if (!whiteQueen.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_queen.png"))
+            "oop-chess/Textures/w_queen.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadWhiteRook() {
     if (!whiteRook.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_rook.png"))
+            "oop-chess/Textures/w_rook.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadWhiteKnight() {
     if (!whiteKnight.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_knight.png"))
+            "oop-chess/Textures/w_knight.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadWhiteBishop() {
     if (!whiteBishop.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_bishop.png"))
+            "oop-chess/Textures/w_bishop.png"))
       cout << "Could not load texture\n";
   }
 
   static void loadWhitePawn() {
     if (!whitePawn.loadFromFile(
-            "/Users/kianslagter/oop-chess/Textures/w_pawn.png"))
+            "oop-chess/Textures/w_pawn.png"))
       cout << "Could not load texture\n";
   }
 
