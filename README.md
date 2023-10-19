@@ -11,7 +11,7 @@ Installation and compiling process.
  $ git clone https://github.com/kianslagter/oop-chess.git
  $ cd oop-chess
  $ make
- $ ./main
+ $ open main
 ```
 
 # Missing Features / Limitations
